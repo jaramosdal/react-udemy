@@ -19,7 +19,7 @@
 //     console.log(nombre, edad, clave);
 //  };
 
- const useContext = ({ clave, nombre, edad, rango = 'Capitán' }) => {
+ const getDatosPersona = ({ clave, nombre, edad, rango = 'Capitán' }) => {
     console.log(nombre, edad, rango);
 
     return {
@@ -32,7 +32,7 @@
     };
  };
 
- const { nombreClave, anios, latlng:{ lat, lng } } = useContext(persona);
+ const { nombreClave, anios, latlng:{ lat, lng } } = getDatosPersona(persona);
 
  console.log(nombreClave, anios);
  console.log(lat, lng);

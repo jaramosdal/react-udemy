@@ -17,21 +17,45 @@ import { shallow } from 'enzyme';
 import CounterApp from '../CounterApp';
 
 describe('Pruebas en <CounterApp />', () => {
-    test('debemos mostrar <CounterApp />> correctamente', () => {
-        const wrapper = shallow(<CounterApp />);
 
+    let wrapper = shallow(<CounterApp />);
+
+    beforeEach(() => {
+        wrapper = shallow(<CounterApp />);
+    });
+
+    test('debemos mostrar <CounterApp />> correctamente', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
     test('debe mostrar el valor por defecto de 100', () => {
-        const value = 100;
-
-        const wrapper = shallow(
-            <CounterApp value={ value } />
-        );
+        const wrapper = shallow(<CounterApp value={ 100 } />);
 
         const valor = wrapper.find('h2').text().trim();
         
         expect(valor).toBe('100');
+    });
+
+    test('debe incrementar con el botón de +1', () => {
+        wrapper.find('button').at(0).simulate('click');
+        const valor = wrapper.find('h2').text().trim();
+        expect(valor).toBe('11');
+    });
+
+    test('debe decrementar con el botón de -1', () => {
+        wrapper.find('button').at(2).simulate('click');
+        const valor = wrapper.find('h2').text().trim();
+        expect(valor).toBe('9');
+    });
+
+    test('debe colocar el valor por defecto con el botón reset', () => {
+        const wrapper = shallow(<CounterApp value={ 105 } />);
+        
+        wrapper.find('button').at(0).simulate('click');
+        wrapper.find('button').at(0).simulate('click');
+        wrapper.find('button').at(1).simulate('click');
+        
+        const valor = wrapper.find('h2').text().trim();
+        expect(valor).toBe('105');
     });
 })

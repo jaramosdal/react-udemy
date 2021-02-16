@@ -74,7 +74,7 @@ const loginUsuario = async(req, res = response) => {
         
         res.json({
             ok: true,
-            uuid: usuario.id,
+            uid: usuario.id,
             name: usuario.name,
             token
         })
@@ -98,6 +98,8 @@ const revalidarToken = async(req, res = response) => {
 
     res.json({
         ok: true,
+        uid,
+        name,
         token
     });
 }

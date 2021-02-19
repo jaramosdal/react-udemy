@@ -1,22 +1,24 @@
-import moment from "moment";
 import { types } from "../types/types";
-
+// const initialState = {
+//     events: [{
+//         id: new Date().getTime(),
+//         title: 'Cumpleaños del jefe',
+//         start: moment().toDate(), // new Date()
+//         end: moment().add(2, 'hours').toDate(),
+//         bgcolor: '#fafafa',
+//         notes: 'Comprar el pastel',
+//         user: {
+//             _id: '123',
+//             name: 'Javi'
+//         }
+//     }],
+//     activeEvent: null
+// };
 
 const initialState = {
-    events: [{
-        id: new Date().getTime(),
-        title: 'Cumpleaños del jefe',
-        start: moment().toDate(), // new Date()
-        end: moment().add(2, 'hours').toDate(),
-        bgcolor: '#fafafa',
-        notes: 'Comprar el pastel',
-        user: {
-            _id: '123',
-            name: 'Javi'
-        }
-    }],
+    events: [],
     activeEvent: null
-};
+}
 
 export const calendarReducer = ( state = initialState, action ) => {
     switch (action.type) {
@@ -35,14 +37,14 @@ export const calendarReducer = ( state = initialState, action ) => {
                 ...state,
                 activeEvent: null
             }
-        case types.eventUpdate:
+        case types.eventUpdated:
             return {
                 ...state,
                 events: state.events.map(
                     event => event.id === action.payload.id ? action.payload : event
                 )
             }
-        case types.eventDelete:
+        case types.eventDeleted:
             return {
                 ...state,
                 events: state.events.filter(
@@ -50,6 +52,15 @@ export const calendarReducer = ( state = initialState, action ) => {
                 ),
                 activeEvent: null
             }
+        case types.eventLoaded:
+            return {
+                ...state,
+                events: [...action.payload]
+            }
+        case types.eventLogout:
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

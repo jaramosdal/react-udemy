@@ -13,7 +13,7 @@ export const SimpleForm = () => {
 
     // Así se ejecuta SIEMPRE que cambia el estado
     // useEffect(() => {
-    //     console.log('Hey!');
+    //     console.log('React ha actualizado el DOM!');
     // })
 
     useEffect(() => {
